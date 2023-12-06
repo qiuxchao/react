@@ -2,9 +2,9 @@
 
 const rollup = require('rollup');
 const babel = require('rollup-plugin-babel');
-const closure = require('./plugins/closure-plugin');
+// const closure = require('./plugins/closure-plugin');
 const commonjs = require('rollup-plugin-commonjs');
-const prettier = require('rollup-plugin-prettier');
+// const prettier = require('rollup-plugin-prettier');
 const replace = require('rollup-plugin-replace');
 const stripBanner = require('rollup-plugin-strip-banner');
 const chalk = require('chalk');
@@ -17,11 +17,11 @@ const Stats = require('./stats');
 const Sync = require('./sync');
 const sizes = require('./plugins/sizes-plugin');
 const useForks = require('./plugins/use-forks-plugin');
-const stripUnusedImports = require('./plugins/strip-unused-imports');
+// const stripUnusedImports = require('./plugins/strip-unused-imports');
 const Packaging = require('./packaging');
 const {asyncRimRaf} = require('./utils');
 const codeFrame = require('babel-code-frame');
-const Wrappers = require('./wrappers');
+// const Wrappers = require('./wrappers');
 
 const RELEASE_CHANNEL = process.env.RELEASE_CHANNEL;
 
@@ -93,18 +93,18 @@ const isWatchMode = argv.watch;
 const syncFBSourcePath = argv['sync-fbsource'];
 const syncWWWPath = argv['sync-www'];
 
-const closureOptions = {
-  compilation_level: 'SIMPLE',
-  language_in: 'ECMASCRIPT_2015',
-  language_out: 'ECMASCRIPT5_STRICT',
-  env: 'CUSTOM',
-  warning_level: 'QUIET',
-  apply_input_source_maps: false,
-  use_types_for_optimization: false,
-  process_common_js_modules: false,
-  rewrite_polyfills: false,
-  inject_libraries: false,
-};
+// const closureOptions = {
+//   compilation_level: 'SIMPLE',
+//   language_in: 'ECMASCRIPT_2015',
+//   language_out: 'ECMASCRIPT5_STRICT',
+//   env: 'CUSTOM',
+//   warning_level: 'QUIET',
+//   apply_input_source_maps: false,
+//   use_types_for_optimization: false,
+//   process_common_js_modules: false,
+//   rewrite_polyfills: false,
+//   inject_libraries: false,
+// };
 
 // Non-ES2015 stuff applied before closure compiler.
 const babelPlugins = [
@@ -197,8 +197,14 @@ function getRollupOutputOptions(
     freeze: !isProduction,
     interop: false,
     name: globalName,
-    sourcemap: false,
+    sourcemap: true,
     esModule: false,
+    sourcemapPathTransform: relativeSourcePath => {
+      return relativeSourcePath.replace(
+        '../../../../packages/',
+        '../../../react/packages/'
+      );
+    },
   };
 }
 
@@ -349,11 +355,11 @@ function getPlugins(
       )
     ),
     // Remove 'use strict' from individual source files.
-    {
-      transform(source) {
-        return source.replace(/['"]use strict["']/g, '');
-      },
-    },
+    // {
+    //   transform(source) {
+    //     return source.replace(/['"]use strict["']/g, '');
+    //   },
+    // },
     // Turn __DEV__ and process.env checks into constants.
     replace({
       __DEV__: isProduction ? 'false' : 'true',
@@ -370,39 +376,39 @@ function getPlugins(
     // Please don't enable this for anything else!
     isUMDBundle && entry === 'react-art' && commonjs(),
     // Apply dead code elimination and/or minification.
-    isProduction &&
-      closure(
-        Object.assign({}, closureOptions, {
-          // Don't let it create global variables in the browser.
-          // https://github.com/facebook/react/issues/10909
-          assume_function_wrapper: !isUMDBundle,
-          renaming: !shouldStayReadable,
-        })
-      ),
+    // isProduction &&
+    //   closure(
+    //     Object.assign({}, closureOptions, {
+    //       // Don't let it create global variables in the browser.
+    //       // https://github.com/facebook/react/issues/10909
+    //       assume_function_wrapper: !isUMDBundle,
+    //       renaming: !shouldStayReadable,
+    //     })
+    //   ),
     // HACK to work around the fact that Rollup isn't removing unused, pure-module imports.
     // Note that this plugin must be called after closure applies DCE.
-    isProduction && stripUnusedImports(pureExternalModules),
+    // isProduction && stripUnusedImports(pureExternalModules),
     // Add the whitespace back if necessary.
-    shouldStayReadable &&
-      prettier({
-        parser: 'babel',
-        singleQuote: false,
-        trailingComma: 'none',
-        bracketSpacing: true,
-      }),
+    // shouldStayReadable &&
+    //   prettier({
+    //     parser: 'babel',
+    //     singleQuote: false,
+    //     trailingComma: 'none',
+    //     bracketSpacing: true,
+    //   }),
     // License and haste headers, top-level `if` blocks.
-    {
-      renderChunk(source) {
-        return Wrappers.wrapBundle(
-          source,
-          bundleType,
-          globalName,
-          filename,
-          moduleType,
-          bundle.wrapWithModuleBoundaries
-        );
-      },
-    },
+    // {
+    //   renderChunk(source) {
+    //     return Wrappers.wrapBundle(
+    //       source,
+    //       bundleType,
+    //       globalName,
+    //       filename,
+    //       moduleType,
+    //       bundle.wrapWithModuleBoundaries
+    //     );
+    //   },
+    // },
     // Record bundle size.
     sizes({
       getSize: (size, gzip) => {
