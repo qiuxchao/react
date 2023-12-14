@@ -64,11 +64,11 @@ const bundles = [
   /******* Isomorphic *******/
   {
     bundleTypes: [
-      UMD_DEV,
-      UMD_PROD,
-      UMD_PROFILING,
+      // UMD_DEV,
+      // UMD_PROD,
+      // UMD_PROFILING,
       NODE_DEV,
-      NODE_PROD,
+      // NODE_PROD,
       // FB_WWW_DEV,
       // FB_WWW_PROD,
       // FB_WWW_PROFILING,
@@ -86,7 +86,10 @@ const bundles = [
 
   /******* Isomorphic Shared Subset *******/
   {
-    bundleTypes: [NODE_DEV, NODE_PROD],
+    bundleTypes: [
+      NODE_DEV, 
+      // NODE_PROD
+    ],
     moduleType: ISOMORPHIC,
     entry: 'react/src/ReactSharedSubset.js',
     name: 'react.shared-subset',
@@ -100,8 +103,8 @@ const bundles = [
   {
     bundleTypes: [
       NODE_DEV,
-      NODE_PROD,
-      NODE_PROFILING,
+      // NODE_PROD,
+      // NODE_PROFILING,
       // TODO: use on WWW.
       // RN_FB_DEV,
       // RN_FB_PROD,
@@ -119,8 +122,8 @@ const bundles = [
   {
     bundleTypes: [
       NODE_DEV,
-      NODE_PROD,
-      NODE_PROFILING,
+      // NODE_PROD,
+      // NODE_PROFILING,
       // FB_WWW_DEV,
       // FB_WWW_PROD,
       // FB_WWW_PROFILING,
@@ -205,12 +208,12 @@ const bundles = [
   /******* React DOM *******/
   {
     bundleTypes: [
-      UMD_DEV,
-      UMD_PROD,
-      UMD_PROFILING,
+      // UMD_DEV,
+      // UMD_PROD,
+      // UMD_PROFILING,
       NODE_DEV,
-      NODE_PROD,
-      NODE_PROFILING,
+      // NODE_PROD,
+      // NODE_PROFILING,
       // FB_WWW_DEV,
       // FB_WWW_PROD,
       // FB_WWW_PROFILING,
@@ -262,10 +265,10 @@ const bundles = [
   /******* React DOM Server *******/
   {
     bundleTypes: [
-      UMD_DEV,
-      UMD_PROD,
+      // UMD_DEV,
+      // UMD_PROD,
       NODE_DEV,
-      NODE_PROD,
+      // NODE_PROD,
       // FB_WWW_DEV,
       // FB_WWW_PROD,
     ],
@@ -284,7 +287,10 @@ const bundles = [
       }),
   },
   {
-    bundleTypes: [NODE_DEV, NODE_PROD],
+    bundleTypes: [
+      NODE_DEV, 
+      // NODE_PROD
+    ],
     moduleType: RENDERER,
     entry: 'react-dom/src/server/ReactDOMLegacyServerNode.js',
     name: 'react-dom-server-legacy.node',
@@ -301,7 +307,12 @@ const bundles = [
 
   /******* React DOM Fizz Server *******/
   {
-    bundleTypes: [NODE_DEV, NODE_PROD, UMD_DEV, UMD_PROD],
+    bundleTypes: [
+      NODE_DEV, 
+      // NODE_PROD, 
+      // UMD_DEV, 
+      // UMD_PROD
+    ],
     moduleType: RENDERER,
     entry: 'react-dom/src/server/ReactDOMFizzServerBrowser.js',
     name: 'react-dom-server.browser',
@@ -311,7 +322,10 @@ const bundles = [
     externals: ['react'],
   },
   {
-    bundleTypes: [NODE_DEV, NODE_PROD],
+    bundleTypes: [
+      NODE_DEV, 
+      // NODE_PROD
+    ],
     moduleType: RENDERER,
     entry: 'react-dom/src/server/ReactDOMFizzServerNode.js',
     name: 'react-dom-server.node',
@@ -332,7 +346,10 @@ const bundles = [
 
   /******* React DOM Fizz Static *******/
   {
-    bundleTypes: __EXPERIMENTAL__ ? [NODE_DEV, NODE_PROD] : [],
+    bundleTypes: __EXPERIMENTAL__ ? [
+      NODE_DEV, 
+      // NODE_PROD
+    ] : [],
     moduleType: RENDERER,
     entry: 'react-dom/static.browser',
     global: 'ReactDOMStatic',
@@ -341,7 +358,10 @@ const bundles = [
     externals: ['react'],
   },
   {
-    bundleTypes: __EXPERIMENTAL__ ? [NODE_DEV, NODE_PROD] : [],
+    bundleTypes: __EXPERIMENTAL__ ? [
+      NODE_DEV, 
+      // NODE_PROD
+    ] : [],
     moduleType: RENDERER,
     entry: 'react-dom/static.node',
     name: 'react-dom-static.node',
@@ -863,7 +883,7 @@ const bundles = [
   {
     bundleTypes: [
       NODE_DEV,
-      NODE_PROD,
+      // NODE_PROD,
       // FB_WWW_DEV,
       // FB_WWW_PROD,
       // FB_WWW_PROFILING,

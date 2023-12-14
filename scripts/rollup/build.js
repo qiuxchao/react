@@ -197,14 +197,8 @@ function getRollupOutputOptions(
     freeze: !isProduction,
     interop: false,
     name: globalName,
-    sourcemap: true,
     esModule: false,
-    sourcemapPathTransform: relativeSourcePath => {
-      return relativeSourcePath.replace(
-        '../../../../packages/',
-        '../../../react/packages/'
-      );
-    },
+    sourcemap: true, // 打包时生成 sourcemap
   };
 }
 
